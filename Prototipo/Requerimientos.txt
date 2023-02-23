@@ -1,4 +1,3 @@
-# Lopis
 Nombre: Lopis.
 Descripción: El proyecto consiste en la venta y compra de productos de todo tipo,
 en el que los usuarios podrán ofertar sus productos y a la vez podrán ordenar otros productos.
