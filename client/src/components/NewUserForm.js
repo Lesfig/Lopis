@@ -19,7 +19,8 @@ const NewUserForm = () => {
             firstName, lastName, email, password, confirmPassword
         }, {withCredentials:true}).then((res)=>{
             console.log(res)
-            navigate('/')
+            localStorage.setItem('userId', res.data.user._id)
+            navigate('/home')
         }).catch((err)=>{ 
             setLoaded(true)
             let errores = [];

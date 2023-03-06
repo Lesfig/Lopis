@@ -3,21 +3,22 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const List = (props) => {
-    const [articles, setArticles] = useState([])
+    const {articles} = props
+    const userId = localStorage.getItem('userId')
+    const [likes, setLikes] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/articles/'+props.category, { withCredentials: true })
-            .then(res => setArticles(res.data))
-            .catch(error => console.log(error))
+            
+        axios.get('http://localhost:8000/api/user/likes/'+userId, { withCredentials: true })
+        .then(res => {
+            setLikes(res.data)})
+        .catch(error => console.log(error))
     }, [])
 
-
-    const removeFromDom = articleId => {
-        setArticles(articles.filter(article => article._id !== articleId));
-    }
-
-    const Capitalize= (str) =>{
-        return str.charAt(0).toUpperCase() + str.slice(1);
+    const handleLike = (articleId) =>{
+        axios.put('http://localhost:8000/api/user/addLike', {userId, articleId}, { withCredentials: true })
+            .then(res => setLikes(res.data))
+            .catch(error => console.log(error))
     }
 
     return(
@@ -28,7 +29,7 @@ const List = (props) => {
                 {articles.map((article, index) => {
                     const link= '/article/' + article._id
                     return (
-                        <div className="px-3 card card-catalog card-white catalog shadow">
+                        <div className="px-3 card card-catalog card-white catalog shadow" key ={index}>
                             <div className="">
                             <div class="first">
                                     
@@ -42,6 +43,8 @@ const List = (props) => {
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center pb-1 my-2">
                                 <p className="price mt-2">{article.price} gs</p>
+                                <i className={likes.includes(article._id) ? "fa fa-heart" : "fa fa-heart-o"}
+                                onClick={(e)=> handleLike(article._id)}/>
                                     
                                 </div>
                                 <Link className="btn btn-primary btn-sm" to={link}>Ver detalles</Link>

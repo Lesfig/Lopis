@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: [true, "Please enter a password"],
       minlength: [8, "Password must be 8 characters or longer"]
+    }, 
+    articlesId: {
+      type: Array,
+      default: []
     }
   }, {timestamps: true});
 

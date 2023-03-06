@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault()
         axios.post('http://localhost:8000/api/login', {
             email, password
-        }, {withCredentials:true, credentials:'include'})
+        }, { withCredentials:true, credentials:'include'})
         .then((res)=>{
             console.log(res)
             localStorage.setItem('userId', res.data.user._id)

@@ -1,40 +1,59 @@
-const User = require('../models/user.model')
+const User= require('../models/user.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
 const SECRET = process.env.SECRET_KEY
 
 module.exports = {
 
+   // userRegister: async (req, res) =>{
+   //     try{
+   //         const newUser = await User.create(req.body)
+   //         const userToken = jwt.sign({_id:newUser._id}, SECRET)
+   //         res.status(201).cookie('userToken', userToken, {httpOnly:true})
+   //         .json({successMessage:"User was register", user:newUser})
+   //     }catch(error){
+   //         res.status(401).json(error)
+   //     }
+   // },
     userRegister: async (req, res) =>{
-        try{
-            const newUser = await User.create(req.body)
+        const user = req.body;
+
+        const hash = bcrypt.hashSync(user.password, 10);
+        user.password = hash;
+
+        User.create(user).then((newUser) => {
             const userToken = jwt.sign({_id:newUser._id}, SECRET)
-            res.status(201).cookie('userToken', userToken, {httpOnly:true, expires:new Date(Date.now() + 900000)})
-            .json({successMessage:"User was register", user:newUser})
-        }catch(error){
-            res.status(401).json(error)
-        }
+            res.status(201).cookie('userToken', userToken, {httpOnly:true})
+            .json({ user: newUser, successMessage:"User was register" });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "There was an error adding a user to the database",
+        err,
+      });
+    });
     },
     
-    loginUser: async (req, res)=>{
-        const user = await User.findOne({email:req.body.email})
-        if(!user){
-            res.status(400).json({error: "invalid Email/Password"})
-        }
-        try{
-            const passIsValid = await bcrypt.compare(req.body.password, user.password )
+    loginUser: async(req, res)=>{
+        const {email, password} = req.body
+         User.findOne({email:email}).then((user)=>{
+            const passIsValid = bcrypt.compare(password, user.password)
             if(passIsValid){
                 const userToken = jwt.sign({_id:user._id}, SECRET)
-                console.log("Anduvoo el pass")
                 res.status(201).cookie('userToken', userToken, {httpOnly:true})
-                .json({successMessage:"User was login", user:user})
+                .json({success:"user was logging", user:user})
             }else{
-                res.status(400).json({error: "Invalid Password"}) 
+                        res.status(401).json({error: "Invalid Password"}) 
             }
-        }catch(error){
-            res.status(400).json({error: "Invalid login attempt"})
-        }
+        })
+        .catch((error)=>{
+            console.log(error)
+            res.status(400).json(error)
+        })
+        
     },
+
 
     getUser:(req,res)=>{
         User.findOne({_id: req.params.id})
@@ -57,6 +76,29 @@ module.exports = {
     logOutUser:(req,res)=>{
         res.clearCookie('userToken')
         res.json({success:'User log-out'})
-    }
+    },
 }
-
+module.exports.userLikes = (req, res) => {
+   
+    User.findOne({ _id: req.params.id})
+    .then(user => res.json(user.articlesId))
+    .catch((error)=>{
+        console.log(error)
+        res.status(400).json(error)
+    })
+      
+}
+module.exports.addLike = (req, res) => {
+    const{userId, articleId} = req.body
+    User.findOne({ _id: userId })
+    .then(user => {
+        user.articlesId.push(articleId)
+        user.save(function(){
+            res.json(user.articlesId);
+          });
+    })
+    .catch((error)=>{
+        console.log(error)
+        res.status(400).json(error)
+    })
+}

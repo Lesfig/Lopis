@@ -6,4 +6,6 @@ module.exports = (app) =>{
     app.get('/api/logout', UserController.logOutUser) 
     app.get('/api/user/:id', UserController.getUser) 
     app.put('/api/user/edit/:id', UserController.editUser )
+    app.get('/api/user/likes/:id', UserController.userLikes )
+    app.put('/api/user/addLike', UserController.addLike )
 }
