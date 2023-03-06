@@ -81,7 +81,7 @@ const Catalog = () => {
                     return (
                         <div className="px-3 card card-catalog card-white catalog shadow">
                             <div className="">
-                            <div class="first">
+                            <div>
                                     
                                 </div> <img className="img-fluid rounded thumbnail-image border" src={article.imgUrl} alt={article.name} />
                                 <div className="d-flex align-items-center">

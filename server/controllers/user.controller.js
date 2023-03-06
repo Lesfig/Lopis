@@ -92,10 +92,18 @@ module.exports.addLike = (req, res) => {
     const{userId, articleId} = req.body
     User.findOne({ _id: userId })
     .then(user => {
-        user.articlesId.push(articleId)
+        const articles = user.articlesId
+        const hasArticle = articles.includes(articleId)
+        if (!hasArticle){
+            articles.push(articleId)
+        } else {
+           newA= articles.filter(article => article !== articleId)
+           user.articlesId = newA
+        }
         user.save(function(){
             res.json(user.articlesId);
-          });
+        });
+        
     })
     .catch((error)=>{
         console.log(error)
