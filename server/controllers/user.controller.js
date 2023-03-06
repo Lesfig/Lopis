@@ -5,20 +5,8 @@ const mongoose = require('mongoose')
 const SECRET = process.env.SECRET_KEY
 
 module.exports = {
-
-   // userRegister: async (req, res) =>{
-   //     try{
-   //         const newUser = await User.create(req.body)
-   //         const userToken = jwt.sign({_id:newUser._id}, SECRET)
-   //         res.status(201).cookie('userToken', userToken, {httpOnly:true})
-   //         .json({successMessage:"User was register", user:newUser})
-   //     }catch(error){
-   //         res.status(401).json(error)
-   //     }
-   // },
     userRegister: async (req, res) =>{
         const user = req.body;
-
         const hash = bcrypt.hashSync(user.password, 10);
         user.password = hash;
 

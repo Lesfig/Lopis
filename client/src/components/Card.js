@@ -31,23 +31,21 @@ const List = (props) => {
                     return (
                         <div className="px-3 card card-catalog card-white catalog shadow" key ={index}>
                             <div className="">
-                            <div class="first">
+                            <div className="first">
                                     
                                 </div> 
                                 <div className="image-div">
+                                    <p className=" mt-3 par position-absolute top-0 start-0"><span className="badge badge-danger">{article.category}</span></p>
                                     <img className="image rounded border" src={article.imgUrl} alt={article.name} />
+                                    <i className={likes.includes(article._id) ? 
+                                    "fa fa-heart position-absolute top-0 end-0 like" : "fa fa-heart-o like position-absolute top-0 end-0"}
+                                    onClick={(e)=> handleLike(article._id)}/>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-between">
                                     <p className="par mt-2">{article.name}</p>
-                                    <p className=" mt-2 par"><span className="badge badge-success">{article.category}</span></p>
+                                    <p className="price mt-2">{article.price} gs</p>
                                 </div>
-                                <div className="d-flex justify-content-between align-items-center pb-1 my-2">
-                                <p className="price mt-2">{article.price} gs</p>
-                                <i className={likes.includes(article._id) ? "fa fa-heart" : "fa fa-heart-o"}
-                                onClick={(e)=> handleLike(article._id)}/>
-                                    
-                                </div>
-                                <Link className="btn btn-primary btn-sm" to={link}>Ver detalles</Link>
+                                <Link className="btn btn-success btn-sm" to={link}>Ver detalles</Link>
                             </div>
                         </div>
                         

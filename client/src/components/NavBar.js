@@ -14,15 +14,14 @@ const NavBar = () => {
 
     return(
         <div className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"> 
-            <NavLink to="/" className="navbar-brand"> LOPIS </NavLink>
-            
+            <NavLink to="/home" className="navbar-brand"> <img src={require('../img/Photo_1678131775239.png')} style={{width: "40px", height:"40px"}} /></NavLink>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/articles/">Productos recientes</NavLink >
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="/article/new">Nuevo Producto</NavLink >
+                        <NavLink className="nav-link" to="/article/new">Nuevo producto</NavLink >
                     </li>
                 </ul>
                 
