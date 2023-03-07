@@ -22,8 +22,8 @@ const Login = () => {
         })
     }
   return (
-    <div className='container col mt-5'>
-        <form onSubmit={submitHandler} className=' card card-white'>
+    <div className='container col mt-5 d-flex justify-content-center' >
+        <form onSubmit={submitHandler} className=' card card-white col-5'>
             <h3>Login</h3> 
             <label htmlFor="" className='form-label'>Email:</label>
             <input type="text" className='form-control'onChange={(e)=>setEmail(e.target.value)}/>   

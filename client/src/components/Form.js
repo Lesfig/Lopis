@@ -75,7 +75,7 @@ const Form = () => {
     }
 
     return(
-        <div className="container border shadow bg-light card-white-m">
+        <div className="container border shadow bg-light card-white-m col-6">
             <h3>Agregar Articulo</h3>
             <form onSubmit={handleSubmit}>
                 <div className = "d-flex align-items-end">

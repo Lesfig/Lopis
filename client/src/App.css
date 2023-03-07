@@ -1,7 +1,6 @@
-.App {
-  text-align: center;
+body{
+  padding-top: 30px;
 }
-
 .navbar{
   padding-left: 25px;
   padding-right: 25px;
@@ -26,6 +25,9 @@
 .img-lg{
   width: 17em;
   height: 11em;
+}
+.fa-heart{
+  color: red;
 }
 
 .par {
@@ -89,6 +91,10 @@ h3{
 .image-div{
   width: 208px;
   height: 208px;
+}
+
+.img-f{
+  max-height: 200px;
 }
 
 .image{

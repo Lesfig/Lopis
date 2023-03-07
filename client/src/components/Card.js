@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const List = (props) => {
+const Card = (props) => {
     const {articles} = props
     const userId = localStorage.getItem('userId')
     const [likes, setLikes] = useState([])
@@ -58,4 +58,4 @@ const List = (props) => {
     )
 
 }
-export default List;
+export default Card;

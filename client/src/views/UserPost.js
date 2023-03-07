@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Delete from "../components/Delete";
+//import Delete from "../components/Delete";
 import { useNavigate } from "react-router-dom";
+import List from "../components/List";
 
 const Catalog = () => {
     const [articles, setArticles] = useState([])
@@ -54,53 +55,39 @@ const Catalog = () => {
 
     return(
         <>
-        <div className="d-flex">
-        <div className='col-6 mt-6'>
-        <form onSubmit={submitHandler} className='perfil'>
-            <h3>PERFIL</h3>
-            <ul>
-                {
-                 loaded ? error.map((err, index) => 
-                 <li key={index} className='error'>{err}</li>
-                ): ""}</ul>
-            <div>
-                <label htmlFor=""  className='form-label'>Nombre:</label>
-                <input type="text" className='form-control' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
-            </div>
-            <label htmlFor=""  className='form-label'>Apellido:</label>
-            <input type="text" className='form-control' value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
-            <label htmlFor="" className='form-label'>Email:</label>
-            <input type="text" className='form-control' value={email} onChange={(e)=>setEmail(e.target.value)}/>   
-            <button className='btn btn-primary mt-3'>Guardar</button>
-        </form>
-    </div>
-        <div>
-            <h2 className="text-center"> Productos subidos</h2>
-            <div className=' d-flex justify-content-around flex-wrap'>
-                {articles.map((article, index) => {
-                    return (
-                        <div className="px-3 card card-catalog card-white catalog shadow">
-                            <div className="">
-                            <div>
-                                    
-                                </div> <img className="img-fluid rounded thumbnail-image border" src={article.imgUrl} alt={article.name} />
-                                <div className="d-flex align-items-center">
-                                <p className="par mt-2">{article.name}</p>
-                                <p className="price mt-2">{article.price} gs</p>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center pb-1 my-2">  
-                                    <Delete id= {article._id} callback ={()=> removeFromDom(article._id)}/>
-                                    <div className="like"><i class="fa fa-heart-o"></i></div>
-                                </div>
-                            </div>
+        <div className="container">
+            <div className=' container card-white shadow'>
+                <form onSubmit={submitHandler} className='mt-5'>
+                    <h3>Editar mis datos</h3>
+                    <ul>
+                        {
+                        loaded ? error.map((err, index) => 
+                        <li key={index} className='error'>{err}</li>
+                        ): ""}
+                    </ul>
+                    <div class="row g-3">
+                        <div class="col">
+                            <label htmlFor=""  className='form-label'>Nombre:</label>
+                            <input type="text" className='form-control' value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
                         </div>
-                        
-                        );
-                        
-                })}
+                        <div class="col">
+                            <label htmlFor=""  className='form-label'>Apellido:</label>
+                            <input type="text" className='form-control' value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+                        </div>
+                        <div class="col">
+                            <label htmlFor="" className='form-label'>Email:</label>
+                            <input type="text" className='form-control' value={email} onChange={(e)=>setEmail(e.target.value)}/>   
+                            <button className='btn btn-primary mt-3'>Guardar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+            <div className="container card-white shadow pb-2">
+                <h2 className="text-center mt-5"> Productos subidos</h2>
+                <List articles= {articles} setArticles = {setArticles} />
             </div>
-            </div>
+            
+        </div>
         </>
     )
 

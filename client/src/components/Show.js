@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import axios from "axios";
-import {useNavigate, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 
 const Show = () => {
@@ -17,12 +17,14 @@ const Show = () => {
     }, [])
 
     return(
-        <div className="container border shadow bg-light db-flex card-white-m">
+        <div className="container border shadow bg-light card-white-m col-4 ">
             
-                <div className = "d-flex align-items-end">
-                    <img src={article.imgUrl} alt ="article" className="img-lg mx-3" />
-                    <div className="row justify-content-center">
-                        <p>Nombre del producto: {article.name}</p>
+                <div >
+                    <h2 style={{textAlign: "center"}}>{article.name}</h2>
+                    <div className="d-flex justify-content-center">
+                        <img src={article.imgUrl} alt ="article" className="my-2 img-f" />
+                    </div>
+                    <div className="">
                         <p>Precio:{article.price}</p>
                         <p>Categoria: {article.category}</p>
                         <p>Descripcion: {article.description}</p>
